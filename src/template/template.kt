@@ -1,3 +1,12 @@
+package template
+
+import println
+import readInput
+
+/**
+ * Advent of Code MainKt template
+ * Create a package, copy this file, and rename it to today's date.
+ */
 fun main() {
     fun part1(input: List<String>): Int {
         return input.size
