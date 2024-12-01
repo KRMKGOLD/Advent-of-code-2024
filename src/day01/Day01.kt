@@ -6,43 +6,17 @@ import kotlin.math.abs
 
 fun main() {
     fun part1(input: List<String>): Int {
-        val firstList = mutableListOf<Int>()
-        val lastList = mutableListOf<Int>()
+        val firstList = input.map { it.substringBefore(' ').toInt() }.sorted()
+        val lastList = input.map { it.substringAfterLast(' ').toInt() }.sorted()
 
-        input.forEach {
-            it.split(" ").let {
-                firstList.add(it.first().toInt())
-                lastList.add(it.last().toInt())
-            }
-        }
-
-        var sum = 0
-
-        repeat(firstList.size) {
-            sum += abs(lastList[it] - firstList[it])
-        }
-
-        return sum
+        return firstList.zip(lastList).sumOf { abs(it.first - it.second) }
     }
 
     fun part2(input: List<String>): Int {
-        val firstList = mutableListOf<Int>()
-        val lastList = mutableListOf<Int>()
+        val firstList = input.map { it.substringBefore(' ').toInt() }
+        val lastList = input.map { it.substringAfterLast(' ').toInt() }
 
-        input.forEach {
-            it.split(" ").let {
-                firstList.add(it.first().toInt())
-                lastList.add(it.last().toInt())
-            }
-        }
-
-        val lastMap = lastList.groupingBy { it }.eachCount()
-        var sum = 0
-        firstList.forEach {
-            sum += it * (lastMap[it] ?: 0)
-        }
-
-        return sum
+        return firstList.sumOf { num -> lastList.count { it == num } * num }
     }
 
     val input = readInput("day01/Day01")
