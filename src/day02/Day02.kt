@@ -12,8 +12,20 @@ fun main() {
             }
     }
 
+    fun List<Int>.omit(index: Int): List<Int> {
+        return subList(0, index) + subList(index + 1, size)
+    }
+
+    fun List<Int>.isValidList(): Boolean {
+        return windowed(2).all {
+            it[1] > it[0] && (1..3).contains(it[1] - it[0])
+        } || windowed(2).all { it[0] > it[1] && (1..3).contains(it[0] - it[1]) }
+    }
+
     fun part2(input: List<String>): Int {
-        return input.size
+        return input.map { it.split(" ").map { it.toInt() } }.count { ints ->
+            ints.isValidList() || ints.indices.any { ints.omit(it).isValidList() }
+        }
     }
 
     val input = readInput("day02/Day02")
