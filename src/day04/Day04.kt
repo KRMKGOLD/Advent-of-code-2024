@@ -85,7 +85,22 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val xSize = input[0].length
+        val ySize = input.size
+        var sum = 0
+
+        for (x in 0..xSize - 3) {
+            for (y in 0..ySize - 3) {
+                val str1 = "${input[x][y]}${input[x + 1][y + 1]}${input[x + 2][y + 2]}"
+                val str2 = "${input[x + 2][y]}${input[x + 1][y + 1]}${input[x][y + 2]}"
+
+                if ((str1 == "MAS" || str1.reversed() == "MAS") &&
+                    (str2 == "MAS" || str2.reversed() == "MAS")
+                ) sum++
+            }
+        }
+
+        return sum
     }
 
     val input = readInput("day04/Day04")
